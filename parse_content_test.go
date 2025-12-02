@@ -14,6 +14,23 @@ func TestGetH1FromHTMLBasic(t *testing.T) {
 	}
 }
 
+func TestGetMultiH1FromHTMLBasic(t *testing.T) {
+	inputBody := `
+		<html>
+			<body>
+				<h1>Test Title 1</h1>
+				<h1>Test Title 2</h1>
+			</body>
+		</html>
+	`
+	actual := getH1FromHTML(inputBody)
+	expected := "Test Title 1"
+
+	if actual != expected {
+		t.Errorf("expected %q, got %q", expected, actual)
+	}
+}
+
 func TestGetH1FromHTMLNoMatch(t *testing.T) {
 	inputBody := "<html><body>Test Title</body></html>"
 	actual := getH1FromHTML(inputBody)

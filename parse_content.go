@@ -13,7 +13,7 @@ func getH1FromHTML(html string) string {
 		log.Printf("HTML parsing failed: %v\n", err)
 	}
 
-	header := doc.Find("h1").Text()
+	header := doc.Find("h1").First().Text()
 	return header
 }
 
@@ -25,7 +25,7 @@ func getFirstParagraphFromHTML(html string) string {
 
 	paragraph := doc.Find("main").Find("p").Text()
 	if paragraph == "" {
-		paragraph = doc.Find("p").Text()
+		paragraph = doc.Find("p").First().Text()
 	}
 
 	return paragraph
