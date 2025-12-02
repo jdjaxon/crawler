@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/url"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -30,27 +29,4 @@ func getFirstParagraphFromHTML(html string) string {
 	}
 
 	return paragraph
-}
-
-func getURLsFromHTML(htmlBody string, baseURL *url.URL) ([]string, error) {
-	var links []string
-
-	doc, err := goquery.NewDocumentFromReader(strings.NewReader(htmlBody))
-	if err != nil {
-		log.Printf("HTML parsing failed: %v\n", err)
-	}
-
-	doc.Find("a[href]").Each(func(_ int, s *goquery.Selection) {
-		// TODO: extract link instead of text
-		relURL, err := url.Parse(s.Text())
-		if err != nil {
-			log.Printf("HTML URL parsing failed: %v\n", err)
-			return
-		}
-
-		resolvedURL := baseURL.ResolveReference(relURL)
-		links = append(links, resolvedURL.String())
-	})
-
-	return links, nil
 }
