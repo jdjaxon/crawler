@@ -17,4 +17,12 @@ func main() {
 
 	baseURL := os.Args[1]
 	log.Printf("starting crawl of: %s\n", baseURL)
+
+	content, err := getHTML(baseURL)
+	if err != nil {
+		log.Printf("failed to fetch content from %s: %v", baseURL, err)
+		return
+	}
+
+	log.Print(content)
 }
